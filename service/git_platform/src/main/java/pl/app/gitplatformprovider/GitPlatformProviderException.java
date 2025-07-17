@@ -32,6 +32,7 @@ public interface GitPlatformProviderException {
             return new NotFoundUserException("not found user with name: " + name);
         }
     }
+
     class UnsupportedProviderException extends IllegalArgumentException {
         public UnsupportedProviderException() {
             super("unsupported provider");

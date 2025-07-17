@@ -12,19 +12,20 @@ import java.io.IOException;
 
 @Configuration
 @EnableConfigurationProperties(GithubProperties.class)
- class GithubClientConfig {
+class GithubClientConfig {
 
     @Bean
     public GitHub gitHub(GithubProperties properties) throws IOException {
         return new GitHubBuilder().withOAuthToken(properties.getToken()).build();
     }
+
     @Bean
     public WebClient githubWebClient(GithubProperties properties) {
         return WebClient.builder()
                 .baseUrl(properties.getBaseUrl())
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + properties.getToken())
                 .defaultHeader(HttpHeaders.ACCEPT, "application/vnd.github+json")
-                .defaultHeader("X-GitHub-Api-Version","2022-11-28")
+                .defaultHeader("X-GitHub-Api-Version", "2022-11-28")
                 .build();
     }
 }

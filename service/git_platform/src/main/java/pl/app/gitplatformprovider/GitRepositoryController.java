@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping(GitRepositoryController.resourcePath)
 @RequiredArgsConstructor
 @Getter
- class GitRepositoryController {
+class GitRepositoryController {
     public static final String resourceName = "repositories";
     public static final String resourcePath = "/api/v1/providers/{provider}/users/{username}/" + resourceName;
     private final GitPlatformProviderStrategyContext strategyContext;

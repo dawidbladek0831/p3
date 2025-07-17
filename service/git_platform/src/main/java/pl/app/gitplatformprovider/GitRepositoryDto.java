@@ -1,8 +1,10 @@
 package pl.app.gitplatformprovider;
 
+import java.util.List;
+
 public record GitRepositoryDto(
         String name,
-        String url,
-        String description,
-        boolean isFork
-) {}
+        String ownerName,
+        List<GitBranchDto> branches
+) {
+}

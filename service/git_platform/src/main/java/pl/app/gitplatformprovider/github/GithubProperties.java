@@ -11,7 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @NoArgsConstructor
 @AllArgsConstructor
 @ConfigurationProperties(prefix = "app.git-platform-provider.github")
- class GithubProperties {
+class GithubProperties {
     private String baseUrl;
     private String token;
 }

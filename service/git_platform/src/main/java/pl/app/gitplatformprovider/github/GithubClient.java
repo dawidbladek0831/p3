@@ -6,10 +6,7 @@ import org.kohsuke.github.GitHub;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import pl.app.gitplatformprovider.GitPlatformProviderClient;
-import pl.app.gitplatformprovider.GitPlatformProviderException;
-import pl.app.gitplatformprovider.GitPlatformProviderType;
-import pl.app.gitplatformprovider.GitRepositoryDto;
+import pl.app.gitplatformprovider.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -46,11 +43,21 @@ public class GithubClient implements GitPlatformProviderClient {
             Map<String, GHRepository> ghRepositories = ghUser.getRepositories();
             return ghRepositories.values().stream()
                     .filter(ghRepository -> !ghRepository.isFork())
-                    .map(ghRepository -> new GitRepositoryDto(
-                            ghRepository.getName(),
-                            ghRepository.getHtmlUrl().toString(),
-                            ghRepository.getDescription(),
-                            ghRepository.isFork()))
+                    .map(ghRepository -> {
+                        List<GitBranchDto> branches = null;
+                        try {
+                            branches = ghRepository.getBranches().values().stream().map(ghBranch -> new GitBranchDto(
+                                    ghBranch.getName(),
+                                    ghBranch.getSHA1()
+                            )).toList();
+                        } catch (IOException e) {
+                            throw new GitPlatformProviderException.ClientException("unable to download repository branches");
+                        }
+                        return new GitRepositoryDto(
+                                ghRepository.getName(),
+                                username,
+                                branches);
+                    })
                     .toList();
         } catch (IOException e) {
             throw new GitPlatformProviderException.ClientException("unable to download user repositories");
