@@ -17,7 +17,9 @@ configurations {
 repositories {
 	mavenCentral()
 }
-
+ext {
+	SPRING_DOTENV_VERSION = '3.0.0'
+}
 dependencies {
 	// COMMON
 	implementation project(':common:exception')
@@ -29,6 +31,9 @@ dependencies {
 	// LOMBOK
 	compileOnly "org.projectlombok:lombok"
 	annotationProcessor "org.projectlombok:lombok"
+
+	// ENV
+	implementation "me.paulschwarz:spring-dotenv:${SPRING_DOTENV_VERSION}"
 
 	// GIT PLATFORM PROVIDERS
 	// https://mvnrepository.com/artifact/org.kohsuke/github-api
