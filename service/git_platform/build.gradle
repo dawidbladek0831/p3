@@ -19,7 +19,22 @@ repositories {
 }
 
 dependencies {
+	// COMMON
+	implementation project(':common:exception')
+
+	// WEB
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	// LOMBOK
+	compileOnly "org.projectlombok:lombok"
+	annotationProcessor "org.projectlombok:lombok"
+
+	// GIT PLATFORM PROVIDERS
+	// https://mvnrepository.com/artifact/org.kohsuke/github-api
+	implementation 'org.kohsuke:github-api:1.327'
+
+	// TEST
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
