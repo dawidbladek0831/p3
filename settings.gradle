@@ -1,1 +1,6 @@
 rootProject.name = 'app'
+
+// COMMON
+
+// SERVICES
+include "service:git_platform"
